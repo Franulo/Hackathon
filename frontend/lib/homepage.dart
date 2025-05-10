@@ -1,5 +1,7 @@
+import 'dart:convert' show jsonEncode;
 import 'package:flutter/material.dart';
 import 'package:frontend/inputfield.dart';
+import 'package:http/http.dart' as http;
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -9,8 +11,13 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  void sentRequest() {
-    print("request sent from${firstName.textControl.text}");
+  Future<void> sendToPython() async {
+    final response = await http.post(
+      Uri.parse('http://localhost:5000/api'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'message': 'Hello from Flutter!'}),
+    );
+    print('Python replied: ${response.body}');
   }
 
   Inputfield firstName = Inputfield(type: 'First Name', width: 100, heigth: 50);
@@ -26,7 +33,7 @@ class _HomepageState extends State<Homepage> {
         children: [
           Row(children: [firstName, lastName]),
           Row(children: [age, gender]),
-          TextButton(onPressed: sentRequest, child: Text("Sent Request")),
+          TextButton(onPressed: sendToPython, child: Text("Sent Request")),
         ],
       ),
     );
