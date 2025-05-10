@@ -1,7 +1,7 @@
 from fastapi import FastAPI
-from backend.schema import UserRequest
-from backend.agent import run_agent
-from backend.db import save_user_to_db
+from schema import UserRequest
+from agent import run_agent
+from db import save_user_to_db
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -17,10 +17,10 @@ app.add_middleware(
 @app.post("/search")
 async def search_apartments(user: UserRequest):
     # save the user's info
-    user_dict = user.dict()
+    user_dict = user.model_dump()
     mongo_id = save_user_to_db(user_dict)
 
     # call AI Agent
-    result = await run_agent(user)
+    result = await run_agent(user_dict)
 
     return {"mongo_id": mongo_id, "result": result}

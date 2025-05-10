@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http; 
+import 'package:http/http.dart' as http;
 import 'package:frontend/inputfield.dart';
 import 'dart:convert';
-
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -17,12 +16,12 @@ class _HomepageState extends State<Homepage> {
   // }
 
   void sentRequest() async {
-    final url = Uri.parse('http://localhost:8000/search'); // change to FastAPI
+    final url = Uri.parse('http://10.1.2.45:8000/search'); // change to FastAPI
 
     final body = {
       "first_name": firstName.textControl.text,
       "last_name": lastName.textControl.text,
-      "age": int.parse(age.textControl.text), 
+      "age": int.parse(age.textControl.text),
       "gender": gender.textControl.text,
     };
 
