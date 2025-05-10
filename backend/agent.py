@@ -1,4 +1,5 @@
-from langchain_google_genai import ChatGoogleGenerativeAI
+import asyncio
+from langchain_openai import ChatOpenAI
 from browser_use import Agent
 from dotenv import load_dotenv
 
@@ -6,7 +7,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Initialize the model
-llm = ChatGoogleGenerativeAI(model='gemini-2.0-flash-exp')
+llm=ChatOpenAI(model="gpt-4o"),
+
 
 # Create agent with the model
 agent = Agent(
