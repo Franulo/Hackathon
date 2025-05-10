@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Initialize the model
-llm=ChatOpenAI(model="gpt-4o"),
+llm=ChatOpenAI(model="gpt-4o")
 
 
 # Create agent with the model
