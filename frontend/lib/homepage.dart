@@ -1,7 +1,8 @@
-import 'dart:convert' show jsonEncode;
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http; 
 import 'package:frontend/inputfield.dart';
-import 'package:http/http.dart' as http;
+import 'dart:convert';
+
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -11,13 +12,31 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  Future<void> sendToPython() async {
-    final response = await http.post(
-      Uri.parse('http://localhost:5000/api'),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({'message': 'Hello from Flutter!'}),
-    );
-    print('Python replied: ${response.body}');
+  // void sentRequest() {
+  //   print("request sent from${firstName.textControl.text}");
+  // }
+
+  void sentRequest() async {
+    final url = Uri.parse('http://localhost:8000/search'); // change to FastAPI
+
+    final body = {
+      "first_name": firstName.textControl.text,
+      "last_name": lastName.textControl.text,
+      "age": int.parse(age.textControl.text), 
+      "gender": gender.textControl.text,
+    };
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(body),
+      );
+
+      print("Server response: ${response.body}");
+    } catch (e) {
+      print("Error sending request: $e");
+    }
   }
 
   Inputfield firstName = Inputfield(type: 'First Name', width: 100, heigth: 50);
@@ -33,7 +52,7 @@ class _HomepageState extends State<Homepage> {
         children: [
           Row(children: [firstName, lastName]),
           Row(children: [age, gender]),
-          TextButton(onPressed: sendToPython, child: Text("Sent Request")),
+          TextButton(onPressed: sentRequest, child: Text("Sent Request")),
         ],
       ),
     );
