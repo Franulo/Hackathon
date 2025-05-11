@@ -12,7 +12,7 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   void sentRequest() async {
-    final url = Uri.parse('http://10.1.2.40:8000/search'); // change to FastAPI
+    final url = Uri.parse('http://10.1.2.45:8000/search'); // change to FastAPI
 
     final body = {
       "website": selectedWebsite ?? 'Flatfox',
@@ -24,7 +24,7 @@ class _HomepageState extends State<Homepage> {
       "first_name": firstName.textControl.text,
       "last_name": lastName.textControl.text,
       "age": int.parse(age.textControl.text),
-      "job/study": job.textControl.text,
+      "job": job.textControl.text,
       "gender": selectedGender ?? 'Male',
     };
 
