@@ -15,7 +15,7 @@ async def run_agent(user_data):
    # Create agent with the model
    if (user_data.get('website', '') == 'flatfox'): 
       agent = Agent(
-         task=("Open https://flatfox.ch/c/en/. Log in into the account: 'DatunaZora572@gmail.com', password: 'Test123!'. "
+         task=("Open https://flatfox.ch/c/en/."
          "When asked about a code open a second tab and log in into gmail: 'DatunaZora572@gmail.com', password: 'b9pcxivkbi'. "
          "Then go to the newes mail and copy the code from there."
          "After login in into flatfox do the following:"
@@ -79,7 +79,6 @@ async def run_agent(user_data):
          task=(f"You are a {user_data.get('job', '')} by the name {user_data.get('first_name')} {user_data.get('last_name', '')} and you are looking for a flat in {user_data.get('city', '')}, {user_data.get('country', '')}. "
                f"Your interests are {user_data.get('interests', '')}."
                "Go to https://www.wgzimmer.ch/wgzimmer/search/mate.html and follow these steps: "
-               "0. get a add blocker."
                "1. Set filters for: "
                f"   - Preis min: {user_data.get('rentFrom', '')} CHF "
                f"   - Preis max: {user_data.get('rentTo', '')} CHF "
