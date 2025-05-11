@@ -14,23 +14,36 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# @app.post("/search")
+# async def search_apartments(user: UserRequest):
+#     # save the user's info
+#     user_dict = user.model_dump()
+#     mongo_id = save_user_to_db(user_dict)
+
+#     # call AI Agent
+#     result = await run_agent(user_dict)
+
+    
+#     # user_dict["result"] = result
+#     # save_user_to_db(user_dict)
+
+#     # Update MongoDB with result
+#     update_user_result(mongo_id, result)
+
+#     return {"mongo_id": mongo_id, "result": result}
+
 @app.post("/search")
 async def search_apartments(user: UserRequest):
-    # save the user's info
     user_dict = user.model_dump()
     mongo_id = save_user_to_db(user_dict)
 
-    # call AI Agent
     result = await run_agent(user_dict)
 
-    
-    # user_dict["result"] = result
-    # save_user_to_db(user_dict)
+    user_dict["result"] = result
+    update_user_result(mongo_id, result)  
 
-    # Update MongoDB with result
-    update_user_result(mongo_id, result)
+    return {"mongo_id": str(mongo_id), "result": result}
 
-    return {"mongo_id": mongo_id, "result": result}
 
 
 
