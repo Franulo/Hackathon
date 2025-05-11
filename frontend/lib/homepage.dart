@@ -24,6 +24,7 @@ class _HomepageState extends State<Homepage> {
       "first_name": firstName.textControl.text,
       "last_name": lastName.textControl.text,
       "age": int.parse(age.textControl.text),
+      "job/study": job.textControl.text,
       "gender": selectedGender ?? 'Male',
     };
 
@@ -48,6 +49,7 @@ class _HomepageState extends State<Homepage> {
   Inputfield firstName = Inputfield(type: 'First Name', width: 100, heigth: 50);
   Inputfield lastName = Inputfield(type: 'Last Name', width: 100, heigth: 50);
   Inputfield age = Inputfield(type: 'Age', width: 100, heigth: 50);
+  Inputfield job = Inputfield(type: 'job/study', width: 100, heigth: 50);
   Inputfield interests = Inputfield(type: 'Interests', width: 200, heigth: 100);
 
   String? selectedWebsite;
@@ -135,6 +137,7 @@ class _HomepageState extends State<Homepage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(child: age),
+                Expanded(child: job),
                 SizedBox(width: 16),
                 Container(
                   width: 200,

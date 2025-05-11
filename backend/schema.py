@@ -4,6 +4,7 @@ class UserRequest(BaseModel):
     first_name: str
     last_name: str
     age: int
+    job: str
     gender: str
 
     website: str
