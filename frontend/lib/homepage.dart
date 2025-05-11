@@ -13,7 +13,7 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   Map<String, dynamic>? agentResult;
   void sentRequest() async {
-    final url = Uri.parse('http://10.1.2.40:8000/search'); // change to FastAPI
+    final url = Uri.parse('http://10.1.2.45:8000/search'); // change to FastAPI
 
     final body = {
       "website": selectedWebsite ?? 'Flatfox',
@@ -36,10 +36,10 @@ class _HomepageState extends State<Homepage> {
         body: jsonEncode(body),
       );
 
-    //   print("Server response: ${response.body}");
-    // } catch (e) {
-    //   print("Error sending request: $e");
-    // }
+      //   print("Server response: ${response.body}");
+      // } catch (e) {
+      //   print("Error sending request: $e");
+      // }
       final data = jsonDecode(response.body);
 
       print("Response result field: ${data["result"]}");
@@ -54,7 +54,6 @@ class _HomepageState extends State<Homepage> {
           agentResult = {"title": "No Title", "url": "No URL"};
         }
       });
-
     } catch (e) {
       print("Error: $e");
     }
@@ -99,7 +98,7 @@ class _HomepageState extends State<Homepage> {
                 ),
                 value: selectedWebsite, // Changed from selectedGender
                 items:
-                    ['Flatfox', 'Wg Gesucht']
+                    ['flatfox', 'homegate', 'wgzimmer']
                         .map(
                           (website) => DropdownMenuItem(
                             value: website,
@@ -197,22 +196,17 @@ class _HomepageState extends State<Homepage> {
               child: Text("Send Request", style: TextStyle(fontSize: 16)),
             ),
 
-          if (agentResult != null)
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                "ohooo thats the Result!!: ${agentResult?['url'] ?? 'No link returned'}",
-                style: TextStyle(fontSize: 16, color: Colors.green),
+            if (agentResult != null)
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  "ohooo thats the Result!!: ${agentResult?['url'] ?? 'No link returned'}",
+                  style: TextStyle(fontSize: 16, color: Colors.green),
+                ),
               ),
-            ),
-
           ],
         ),
       ),
     );
-
   }
 }
-
-
-
