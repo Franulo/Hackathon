@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from schema import UserRequest
 from agent import run_agent
-from db import save_user_to_db
+from db import save_user_to_db, update_user_result
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -23,4 +23,14 @@ async def search_apartments(user: UserRequest):
     # call AI Agent
     result = await run_agent(user_dict)
 
+    
+    # user_dict["result"] = result
+    # save_user_to_db(user_dict)
+
+    # Update MongoDB with result
+    update_user_result(mongo_id, result)
+
     return {"mongo_id": mongo_id, "result": result}
+
+
+

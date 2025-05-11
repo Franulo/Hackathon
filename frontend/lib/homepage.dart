@@ -11,6 +11,7 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  Map<String, dynamic>? agentResult;
   void sentRequest() async {
     final url = Uri.parse('http://10.1.2.40:8000/search'); // change to FastAPI
 
@@ -24,7 +25,7 @@ class _HomepageState extends State<Homepage> {
       "first_name": firstName.textControl.text,
       "last_name": lastName.textControl.text,
       "age": int.parse(age.textControl.text),
-      "job/study": job.textControl.text,
+      "job": job.textControl.text,
       "gender": selectedGender ?? 'Male',
     };
 
@@ -35,9 +36,27 @@ class _HomepageState extends State<Homepage> {
         body: jsonEncode(body),
       );
 
-      print("Server response: ${response.body}");
+    //   print("Server response: ${response.body}");
+    // } catch (e) {
+    //   print("Error sending request: $e");
+    // }
+      final data = jsonDecode(response.body);
+
+      print("Response result field: ${data["result"]}");
+      print("Type of result: ${data["result"].runtimeType}");
+
+      final resultMap = data["result"];
+      setState(() {
+        final result = data["result"];
+        if (result is Map<String, dynamic>) {
+          agentResult = result;
+        } else {
+          agentResult = {"title": "No Title", "url": "No URL"};
+        }
+      });
+
     } catch (e) {
-      print("Error sending request: $e");
+      print("Error: $e");
     }
   }
 
@@ -177,9 +196,23 @@ class _HomepageState extends State<Homepage> {
               ),
               child: Text("Send Request", style: TextStyle(fontSize: 16)),
             ),
+
+          if (agentResult != null)
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                "ohooo thats the Result!!: ${agentResult?['url'] ?? 'No link returned'}",
+                style: TextStyle(fontSize: 16, color: Colors.green),
+              ),
+            ),
+
           ],
         ),
       ),
     );
+
   }
 }
+
+
+
