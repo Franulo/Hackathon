@@ -5,3 +5,9 @@ class UserRequest(BaseModel):
     last_name: str
     age: int
     gender: str
+
+    website: str
+    rentFrom: str
+    rentTo: str
+    city: str
+    country: str 
